@@ -65,3 +65,19 @@ Use `docker compose down` to stop the services.
 - Services left running for inspection. No application source changes in Phase 1.
 - Remaining phases: derive engineering findings; implement and exercise rules;
 	create verified product, stack, and current-status memory.
+
+## Phase 2: Engineering Findings
+
+- Inspected shared financial types, helper calculations and existing tests,
+	TypeScript and ESLint configuration, a KPI caller, and the remaining analytics
+	route implementations. Earlier Phase 1 evidence was reused, not assumed anew.
+- [engineering-findings.md](engineering-findings.md) maps eight proposed rules
+	to concrete code/configuration and a focused way to validate each.
+- Rejected assumption: a uniform formatter or mandatory punctuation style exists.
+	Correction: the inspected helper and KPI row use different punctuation styles;
+	follow the touched file instead of reformatting the repository.
+- Candidate defect, not yet confirmed: ISO date-only parsing plus local calendar
+	getters may shift monthly grouping west of UTC. Phase 3 will reproduce it before
+	making the smallest applicable source change.
+- Validation gate: local Markdown evidence links must resolve and `git diff --check`
+	must pass before this phase is committed. No application behavior changed.
