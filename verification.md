@@ -81,3 +81,49 @@ Use `docker compose down` to stop the services.
 	making the smallest applicable source change.
 - Validation gate: local Markdown evidence links must resolve and `git diff --check`
 	must pass before this phase is committed. No application behavior changed.
+
+## Phase 3: Installed Rules and Real Task
+
+### Discovery and Iteration
+
+- Installed [workflow](.agents/rules/00-workflow.md),
+	[frontend](.agents/rules/10-frontend.md), and
+	[backend](.agents/rules/20-backend.md) rules, mapped to Phase 2 findings.
+- Updated [AGENTS.md](AGENTS.md) to explicitly require loading relevant rules.
+	Arbitrary rule Markdown is not claimed to be an automatic editor hook.
+- Checked all rule evidence links and all three AGENTS rule references: passed.
+- A read-only Explore agent investigated the date task from the root guidance.
+	It reported loading all three rules and correctly reported absent project
+	skills and memory. It found `toYearMonthKey` and excluded UI, route, framework,
+	and persistence changes.
+- Wrong agent claim: replacing the Date parameter with a string parameter and
+	slicing the ISO value was described as preserving signatures. Correction:
+	although exported signatures would remain unchanged, the internal signature
+	would change unnecessarily. Rejected that proposal; refined the frontend rule
+	to use UTC calendar getters without changing the existing Date parameter.
+
+### Exercise Results
+
+Task: keep ISO date-only movement values in their intended calendar month,
+including first-of-month and year-boundary cases west of UTC.
+
+- Before: the actual helper returned `Feb 2024` for `2024-02-01` under UTC,
+	but `Jan 2024` under `America/Los_Angeles`: defect reproduced.
+- Changed only the key expression in
+	[financial-utils.ts](frontend/src/lib/financial-utils.ts):
+	`getFullYear` / `getMonth` became `getUTCFullYear` / `getUTCMonth`.
+	No signature, label formatter, API, component, or test-file changes.
+- After: assertions passed in UTC and America/Los_Angeles for `2024-02-01`,
+	unsorted `2024-12-31`, `2025-01-01`, `2025-02-01`, totals, and empty input.
+	The one-off check transpiled the actual TypeScript helper with the installed
+	TypeScript API and imported that output; it did not reimplement aggregation.
+- `docker compose exec -T frontend npm test -- src/lib/financial-utils.test.ts`:
+	all 5 existing tests passed.
+- `docker compose exec -T frontend npx eslint src/lib/financial-utils.ts`: passed.
+- Editor diagnostics for the touched helper: no errors. `git diff --check`: passed.
+- Rules followed in the final implementation: owning helper reused (R4),
+	timezone/chronology behavior checked (R5), neighboring style preserved (R6),
+	focused existing checks used with no new test files (R7).
+- Not run: full suites, frontend production build, or browser visual checks.
+	This task changed neither public types nor UI layout. The rule exercise
+	demonstrates guidance in this session, not guaranteed compliance by every agent.
