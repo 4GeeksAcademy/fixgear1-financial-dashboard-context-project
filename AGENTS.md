@@ -25,3 +25,10 @@ load and follow, not editor-specific automatic glob discovery or executable hook
 Check `.agents/skills` for relevant skills if it exists; no project skills are
 installed yet. Read the relevant `memory-bank` files when that directory exists.
 If guidance is missing, report that rather than inventing its contents.
+
+## Project Memory
+
+Start with [current status](memory-bank/current-status.md). Consult
+[product context](memory-bank/product.md) for scope and data flow, and
+[stack and operations](memory-bank/tech-stack.md) for file responsibilities,
+startup, and focused checks. Update affected entries after verified changes.

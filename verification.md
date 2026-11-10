@@ -63,7 +63,7 @@ Use `docker compose down` to stop the services.
 	personal namespace. It has not been moved or replaced; confirm instructor
 	acceptance if personal ownership is required.
 - Services left running for inspection. No application source changes in Phase 1.
-- Remaining phases: derive engineering findings; implement and exercise rules;
+- Remaining phases at that point: derive engineering findings; implement and exercise rules;
 	create verified product, stack, and current-status memory.
 
 ## Phase 2: Engineering Findings
@@ -79,8 +79,8 @@ Use `docker compose down` to stop the services.
 - Candidate defect, not yet confirmed: ISO date-only parsing plus local calendar
 	getters may shift monthly grouping west of UTC. Phase 3 will reproduce it before
 	making the smallest applicable source change.
-- Validation gate: local Markdown evidence links must resolve and `git diff --check`
-	must pass before this phase is committed. No application behavior changed.
+- Validation passed: local Markdown evidence links resolved and `git diff --check`
+	passed before this phase was committed. No application behavior changed.
 
 ## Phase 3: Installed Rules and Real Task
 
@@ -127,3 +127,22 @@ including first-of-month and year-boundary cases west of UTC.
 - Not run: full suites, frontend production build, or browser visual checks.
 	This task changed neither public types nor UI layout. The rule exercise
 	demonstrates guidance in this session, not guaranteed compliance by every agent.
+
+## Phase 4: Verified Project Memory
+
+- Added [product context](memory-bank/product.md),
+	[stack and operations](memory-bank/tech-stack.md), and
+	[current status](memory-bank/current-status.md), linked from AGENTS.
+- Checked the React entrypoint, Tailwind CSS import/theme, Recharts use, and
+	`components.json` configuration before describing their responsibilities.
+- Refreshed Compose status: both services running. Direct health returned
+	`{"status":"ok"}`. Existing backend health test: 1 passed, 14 deselected.
+- Recorded, rather than repaired, the Starlette TestClient/httpx deprecation warning.
+- Memory distinguishes source/configuration facts, runtime observations, and
+	unverified browser/build/production claims. It preserves the hardcoded header,
+	dynamic data dates, and organization-owned fork limitations.
+- Validation passed: 79 relative links across 11 repository Markdown files resolved.
+	Structured checks matched service names and published ports against Compose JSON,
+	declared stack majors against package metadata, and the proxy, UTC getters, and
+	nine route paths against source. Prior phase commits exist and AGENTS references
+	all three memory entries. `git diff --check` passed.
